@@ -206,7 +206,7 @@ public class Main {
                     System.out.println("\n=== Gerenciar Disciplinas ===");
                     System.out.println("1 - Cadastrar nova disciplina");
                     System.out.println("2 - Editar nome da disciplina");
-                    System.out.println("3- Editar carga horária");
+                    System.out.println("3 - Editar carga horária");
                     System.out.println("4 - Alterar turma");
                     System.out.println("5 - Excluir disciplina");
                     System.out.println("6 - Adicionar atividade");
@@ -223,17 +223,17 @@ public class Main {
                             int carga = Integer.parseInt(entrada.nextLine());
                             Turma.listar(turmas);
                             System.out.print("Id da turma: ");
-                            int idTurma = entrada.nextInt();
+                            int idTurma = Integer.parseInt(entrada.nextLine());
                             turma_escolhida = turmas.get(idTurma-1);
-                            Disciplina nova = new Disciplina(nome_disc, carga, turma_escolhida);
+                            disciplinas.add(new Disciplina(nome_disc, carga, turma_escolhida));
                             System.out.println("Disciplina cadastrada com sucesso.");
                             break;
 
                         case 2: // editar nome da disciplina
                             System.out.print("ID da disciplina: ");
-                            int idEdit = entrada.nextInt();
+                            int id_edit = Integer.parseInt(entrada.nextLine());
                             for (Disciplina d : Disciplina.getListaDisciplinas()) {
-                                if (d.getId() == idEdit) {
+                                if (d.getId() == id_edit) {
                                     System.out.print("Novo nome: ");
                                     d.setNome(entrada.nextLine());
                                     System.out.println("Nome atualizado.");
@@ -244,9 +244,9 @@ public class Main {
 
                         case 3: // editar carga horária
                             System.out.print("ID da disciplina: ");
-                            int idCarga = entrada.nextInt();
+                            int id_carga = Integer.parseInt(entrada.nextLine());
                             for (Disciplina d : Disciplina.getListaDisciplinas()) {
-                                if (d.getId() == idCarga) {
+                                if (d.getId() == id_carga) {
                                     System.out.print("Nova carga horária: ");
                                     d.setCargaHoraria(Integer.parseInt(entrada.nextLine()));
                                     System.out.println("Carga horária atualizada.");
@@ -257,39 +257,39 @@ public class Main {
 
                         case 4: // Alterar turma
                             System.out.print("ID da disciplina: ");
-                            int idDisciplinaAltTurma = entrada.nextInt();
-                            Disciplina disciplinaEscolhidaTurmaAlt = disciplinas.get(idDisciplinaAltTurma);
-                            System.out.print("ID turma: ");
-                            int idNovaTurma = entrada.nextInt();
-                            Turma novaTurma = turmas.get(idNovaTurma-1);
-                            disciplinaEscolhidaTurmaAlt.setTurma(novaTurma);
+                            int id_disciplina_alt_turma = Integer.parseInt(entrada.nextLine());
+                            Disciplina disciplina_escolhida_turma_alt = disciplinas.get(id_disciplina_alt_turma-1);
+                            System.out.print("ID turma nova: ");
+                            int id_nova_turma = Integer.parseInt(entrada.nextLine());
+                            Turma nova_turma = turmas.get(id_nova_turma-1);
+                            disciplina_escolhida_turma_alt.setTurma(nova_turma);
                             break;
 
                         case 5: // Excluir disciplina
                             System.out.print("ID da disciplina a remover: ");
-                            int idRemove = entrada.nextInt();
-                            Disciplina.getListaDisciplinas().removeIf(d -> d.getId() == idRemove);
+                            int id_remove = Integer.parseInt(entrada.nextLine());
+                            Disciplina.getListaDisciplinas().removeIf(d -> d.getId() == id_remove);
                             System.out.println("Disciplina removida.");
                             break;
 
                         case 6: // Adicionar atividade
                             System.out.print("ID da disciplina: ");
-                            int idDisciplinaAdd = entrada.nextInt();
-                            Disciplina disciplina_escolhida_atv_add = disciplinas.get(idDisciplinaAdd);
+                            int id_disciplina_add = Integer.parseInt(entrada.nextLine());
+                            Disciplina disciplina_escolhida_atv_add = disciplinas.get(id_disciplina_add);
                             System.out.print("ID da atividade a ser incluida: ");
-                            int idAtvAdd = entrada.nextInt();
-                            Atividade atv_escolhida_add = atividades.get(idAtvAdd-1);
+                            int id_atv_add = Integer.parseInt(entrada.nextLine());
+                            Atividade atv_escolhida_add = atividades.get(id_atv_add-1);
                             disciplina_escolhida_atv_add.adicionarAtividade(atv_escolhida_add);
                             break;
 
                         case 7: // Remover atividade
                             System.out.print("ID da disciplina: ");
-                            int idDisciplinaRem = entrada.nextInt();
-                            Disciplina disciplina_escolhida_atv_rem = disciplinas.get(idDisciplinaRem);
+                            int id_disciplina_rem = Integer.parseInt(entrada.nextLine());
+                            Disciplina disciplina_escolhida_atv_rem = disciplinas.get(id_disciplina_rem);
                             System.out.print("ID da atividade a ser excluida: ");
-                            int idAtvRem = entrada.nextInt();
-                            Atividade atvEscolhidaRem = atividades.get(idAtvRem-1);
-                            disciplina_escolhida_atv_rem.removerAtividade(atvEscolhidaRem);
+                            int id_atv_rem = Integer.parseInt(entrada.nextLine());
+                            Atividade atv_escolhida_rem = atividades.get(id_atv_rem-1);
+                            disciplina_escolhida_atv_rem.removerAtividade(atv_escolhida_rem);
                             break;
 
                         case 0:
