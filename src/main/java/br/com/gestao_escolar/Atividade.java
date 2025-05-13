@@ -133,4 +133,9 @@ public abstract class Atividade {
         System.out.println("Peso atualizado com sucesso!");
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s (Nota: %.2f, Peso: %d)", getTipo(), getNota(), getPesoNota());
+    }
+    
 }
