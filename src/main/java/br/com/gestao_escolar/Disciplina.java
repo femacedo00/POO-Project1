@@ -65,10 +65,20 @@ public class Disciplina {
     public static void listar() {
         System.out.println("=== Lista de Disciplinas ===");
         for (Disciplina d : listaDisciplinas) {
-            System.out.println("ID: " + d.getId() + 
-                               ", Nome: " + d.getNome() + 
-                               ", Carga Horária: " + d.getCargaHoraria() + 
-                               ", Turma: " + (d.getTurma() != null ? d.getTurma().nomeTurma() : "Nenhuma"));
+            if (!d.atividades.isEmpty()) {
+
+                System.out.println("ID: " + d.getId() + 
+                                   ", Nome: " + d.getNome() + 
+                                   ", Carga Horária: " + d.getCargaHoraria() + 
+                                   ", Turma: " + (d.getTurma() != null ? d.getTurma().nomeTurma() : "Nenhuma") + 
+                                   ", Atividades: " + (d.atividades.toString()));
+                
+            } else {
+                System.out.println("ID: " + d.getId() + 
+                                   ", Nome: " + d.getNome() + 
+                                   ", Carga Horária: " + d.getCargaHoraria() + 
+                                   ", Turma: " + (d.getTurma() != null ? d.getTurma().nomeTurma() : "Nenhuma"));
+            }
         }
     }
 }

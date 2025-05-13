@@ -30,13 +30,15 @@ public class Main {
         do {
             System.out.println("\nO que deseja fazer?");
             System.out.println("1 - Cadastrar uma entidade");
-            System.out.println("2 - Listar entidade");
+            System.out.println("2 - Listar entidades");
             System.out.println("3 - Editar entidade");
             System.out.println("4 - Cadastrar uma turma");
             System.out.println("5 - Listar Turmas");
             System.out.println("6 - Editar uma Turma");
             System.out.println("7 - Gerenciar disciplinas");
             System.out.println("8 - Listar disciplinas");
+            System.out.println("9 - Gerenciar atividades");
+            System.out.println("10 - Listar atividades");
             System.out.println("0 - Sair");
             usuario_escolha = Integer.parseInt(entrada.nextLine());
 
@@ -275,7 +277,7 @@ public class Main {
                         case 6: // Adicionar atividade
                             System.out.print("ID da disciplina: ");
                             int id_disciplina_add = Integer.parseInt(entrada.nextLine());
-                            Disciplina disciplina_escolhida_atv_add = disciplinas.get(id_disciplina_add);
+                            Disciplina disciplina_escolhida_atv_add = disciplinas.get(id_disciplina_add-1);
                             System.out.print("ID da atividade a ser incluida: ");
                             int id_atv_add = Integer.parseInt(entrada.nextLine());
                             Atividade atv_escolhida_add = atividades.get(id_atv_add-1);
@@ -285,7 +287,7 @@ public class Main {
                         case 7: // Remover atividade
                             System.out.print("ID da disciplina: ");
                             int id_disciplina_rem = Integer.parseInt(entrada.nextLine());
-                            Disciplina disciplina_escolhida_atv_rem = disciplinas.get(id_disciplina_rem);
+                            Disciplina disciplina_escolhida_atv_rem = disciplinas.get(id_disciplina_rem-1);
                             System.out.print("ID da atividade a ser excluida: ");
                             int id_atv_rem = Integer.parseInt(entrada.nextLine());
                             Atividade atv_escolhida_rem = atividades.get(id_atv_rem-1);
@@ -297,14 +299,93 @@ public class Main {
                             break;
 
                         default:
-                            System.out.println("Opção inválida.");
+                            System.out.println("Comando não reconhecido!");
                     }
                     break;
                 case 8:
                     Disciplina.listar();
                     break;
+                case 9:
+                    int opcaoAtividade;
+                    System.out.println("\n=== Gerenciar Atividades ===");
+                    System.out.println("1 - Cadastrar nova atividade");
+                    System.out.println("2 - Remover atividade");
+                    System.out.println("3 - Alterar peso atividade");
+                    System.out.println("4 - Calcular média de provas");
+                    System.out.println("5 - Calcular média de trabalhos");
+                    System.out.println("6 - Calcular média total");
+                    System.out.println("0 - Voltar ao menu principal");
+                    System.out.print("Escolha uma opção: ");
+                    opcaoAtividade = Integer.parseInt(entrada.nextLine());
+
+                    switch (opcaoAtividade) {
+                        case 1: 
+                            System.out.println("Tipo de atividade:");
+                            System.out.println("1 - Prova");
+                            System.out.println("2 - Trabalho");
+                            int tipoAtv = Integer.parseInt(entrada.nextLine());
+
+                            System.out.print("Nota: ");
+                            double nota = Double.parseDouble(entrada.nextLine());
+
+                            System.out.print("Peso da nota: ");
+                            int peso = Integer.parseInt(entrada.nextLine());
+
+                            Atividade novaAtv = null;
+
+                            if (tipoAtv == 1) {
+                                novaAtv = new Prova(nota, peso);
+                            } else if (tipoAtv == 2) {
+                                novaAtv = new Trabalho(nota, peso);
+                            } else {
+                                System.out.println("Tipo inválido.");
+                                break;
+                            }
+
+                            atividades.add(novaAtv);
+                            System.out.println(novaAtv.getTipo() + " adicionada com sucesso! ID: " + atividades.size());
+                            break;
+                        case 2:
+                            Atividade.listarAtividades(atividades); 
+                            if (atividades.isEmpty()) break;
+
+                            System.out.print("Digite o ID da atividade que deseja remover: ");
+                            int idRemover = Integer.parseInt(entrada.nextLine());
+                            if (idRemover < 1 || idRemover > atividades.size()) {
+                                System.out.println("ID inválido.");
+                            } else {
+                                Atividade removida = atividades.remove(idRemover - 1);
+                                System.out.printf("Atividade '%s' removida com sucesso!\n", removida.getTipo());
+                            }
+                            break;
+                        case 3:
+                            Atividade.alterarPeso(atividades, entrada);
+                            break;
+                        case 4:
+                            double mediaProvas = Atividade.calcularMediaProvas(atividades);
+                            System.out.printf("Média Ponderada das Provas: %.2f\n", mediaProvas);
+                            break;
+                        case 5:
+                            double mediaTrabalhos = Atividade.calcularMediaTrabalhos(atividades);
+                            System.out.printf("Média Ponderada dos Trabalhos: %.2f\n", mediaTrabalhos);
+                            break;
+                        case 6:
+                            double media = Atividade.calcularMediaPonderada(atividades);
+                            System.out.printf("Média Ponderada Total: %.2f\n", media);
+                            break;
+                        case 0:
+                            System.out.println("Voltando ao menu principal...");
+                            break;
+                        default:
+                            System.out.println("Comando não reconhecido!");
+                            break;
+                    }
+                break;
+                case 10:
+                    Atividade.listarAtividades(atividades);
+                    break;
                 default:
-                    System.out.println("Entrada não reconhecida!");
+                    System.out.println("Comando não reconhecido!");
                     break;
             }
         } while (ligado);
