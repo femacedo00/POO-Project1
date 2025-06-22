@@ -45,6 +45,5 @@ abstract class Entidade {
                 System.out.println("Entidade não reconhecida!");
                 break;
         }
-        entrada.close();
     }
 }
